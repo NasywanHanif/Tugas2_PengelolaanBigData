@@ -1,10 +1,46 @@
-# Tugas2_PengelolaanBigData
+=== Tugas2_PengelolaanBigData ===
 Untuk pengerjaan tugas 2 ini melibatkan 2 metode utama yaitu: Proses Crawling Data dan Analisis Data
 A. Crawling Data (Menggunakan Google Collab untuk mendapatkan data)
-Langkah-langkah:
-1. 
+
+!pip install serpapi
+!pip install pandas
+!pip install google-search-results
+
+import pandas as pd
+from serpapi import GoogleSearch
+
+- Define parameters for the Google Maps API query
+params = {
+    "engine": "google_maps",
+    "q": "McD",
+    "ll": "@-6.905977,107.613144,15.1z",
+    "type": "search",
+    "api_key": "(diisi dengan api key)"
+}
+
+- Perform the Google Maps API query
+search = GoogleSearch(params)
+results = search.get_dict()
+local_results = results["local_results"]
+
+- Convert the results to a Pandas DataFrame
+df = pd.DataFrame(local_results)
+
+- Rename columns if needed
+df = df.rename(columns={
+    "name": "Name",
+    "address": "Address",
+    "phone": "Phone",
+    "rating": "Rating"
+})
+print (df)
+
+- Save the DataFrame to a CSV file
+csv_filename = "pizza_places.csv"
+df.to_csv(csv_filename, index=False)
 
 B. Mengatur hadoop untuk windows
+
 1. Download hadoop for windows
 2. hadoop version untuk melihat versi hadoop
 3. hdfs namenode -format :  untuk melakukan format namenode
@@ -16,6 +52,7 @@ B. Mengatur hadoop untuk windows
 9. localhost:8088 : berisi cluster pada hadoop
 
 C. Pengecekan pada sql client
+
 1. Masukkan data yang sudah di crawl pada my sql qlient
 2. Buka mysql workbench untuk melihat apakah data sudah masuk
 3. ganti directory ke hadoop/sqoop/bin
@@ -23,7 +60,7 @@ C. Pengecekan pada sql client
 
 
 Hadop dengan ekosistem sqoop pada Cloudera 
-#Langkah-langkah 
+Langkah-langkah 
 1. mysql -u root -pccloudera
 2. melihat database
    show databases
